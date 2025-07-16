@@ -26,6 +26,9 @@ impl Blake3Air {
     ) -> RowMajorMatrix<F> {
         let mut rng = SmallRng::seed_from_u64(1);
         let inputs = (0..num_hashes).map(|_| rng.random()).collect::<Vec<_>>();
+
+        // println!("extra capacity bits: {:?}", extra_capacity_bits);
+        // println!("inputs: {:02x?}", inputs);
         generate_trace_rows(inputs, extra_capacity_bits)
     }
 

@@ -23,11 +23,14 @@ pub fn generate_trace_rows<F: PrimeField64>(
         "Callers expected to pad inputs to VECTOR_LEN times a power of two"
     );
 
+    // println!("NUB_BLAKE3_COLS: {:?}", NUM_BLAKE3_COLS);
     let trace_length = num_rows * NUM_BLAKE3_COLS;
 
     // We allocate extra_capacity_bits now as this will be needed by the dft.
     let mut long_trace = F::zero_vec(trace_length << extra_capacity_bits);
     long_trace.truncate(trace_length);
+    // println!("long_trace: {:?}", long_trace);
+    // println!();
 
     let mut trace = RowMajorMatrix::new(long_trace, NUM_BLAKE3_COLS);
     let (prefix, rows, suffix) = unsafe { trace.values.align_to_mut::<Blake3Cols<F>>() };
